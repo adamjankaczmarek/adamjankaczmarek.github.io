@@ -1,0 +1,115 @@
+# section information
+section:
+  name: Projects
+  id: projects
+  enable: true
+  weight: 4
+  showOnNavbar: true
+  # Can optionally hide the title in sections
+  # hideTitle: true
+
+# filter buttons
+buttons:
+- name: All
+  filter: "all"
+- name: Natural Language Processing
+  filter: "NLP"
+    #- name: Academic
+    #  filter: "academic"
+    #- name: Hobby
+    #  filter: "hobby"
+
+# your projects
+projects:
+- name: BSNLP 2021 - Named Entity Recognition and Linking
+  logo: /images/sections/projects/bsnlp2021.png
+  role: Researcher
+  timeline: "December 2020 - April 2021"
+  repo: "https://aclanthology.org/2021.bsnlp-1.14/"
+  summary: "Researching problem of identifying Named Entities using few-shot and zero-shot approaches for Multilingual setting in less-researched Slavic languages with varying character sets (eg. Polish, Czech, Ukrainian) and recognizing coreference relations between them. Gathering final solutions from other team members and preparing final submission."
+  tags: ["NLP", "NER", "Research", "Academic"]
+
+- name: PolEval 2021 Task 1
+  logo: /images/sections/projects/poleval2021.png
+  role: Co-Creator
+  timeline: "October 2020 - October 2021"
+  repo: "https://github.com/poleval/2021-punctuation-restoration"
+  summary: "Co-authoring PolEval competition task for punctuation restoration including data acquisition, annotation and design of evaluation metrics. Contributing to the development of an evaluation platform. Evaluating contestants’ solutions and source codes."
+  tags: ["NLP", "PolEval"]
+
+- name: "PolEval 2020 - t-REx: The Rescorer-Extender for ASR improvement"
+  logo: /images/sections/projects/poleval2021.png
+  role: Researcher / Coordinator
+  timeline: "April 2020 - October 2020"
+  repo: "https://github.com/adamjankaczmarek/poleval2020"
+  summary: "Development of a hybrid ASR improvement system consisting of 2 main parts: lattice extender and transformer-based utterance rescorer. Researching new, more efficient, approaches for Language Modelling eg. Electra. Coordinating meetings, data transfer protocols and preparing final submission to the task."
+  tags: ["NLP", "PolEval"]
+   
+- name: "BSNLP 2019 Slavic Named Entity Recognition and Disambiguation Shared Task"
+  logo: /images/sections/projects/poleval2021.png
+  role: Co-Creator
+  timeline: "March 2019 - June 2019"
+  repo: "https://github.com/poleval/2021-punctuation-restoration"
+  summary: "Researching problem of identifying Named Entities using few-shot and zero-shot approaches for Multilingual setting in less-researched Slavic languages with varying character sets (eg. Polish, Czech, Ukrainian) and recognizing coreference relations between them."
+  tags: ["NLP", "PolEval"]
+
+    #- name: "PLinML 2018: Zero Verb Detection"
+    #  logo: /images/sections/projects/poleval2021.png
+    #  role: "Researcher"
+    #  timeline: "May 2018 - October 2018"
+    #  repo: "https://github.com/poleval/2021-punctuation-restoration"
+    #  summary: "Leading a team on Nested Named Entity Recognition task for Polish, proposing and researching SoTA methods for the problem, gathering results from the team and preparing final submission."
+    #  tags: ["NLP", "PolEval"]
+    #
+
+- name: "PolEval 2018: Nested Named Entity Recognition for Polish"
+  logo: /images/sections/projects/poleval2021.png
+  role: "Team Leader / Researcher"
+  timeline: "May 2018 - October 2018"
+  repo: "http://poleval.pl/files/poleval2018.pdf"
+  summary: "Leading a team on Nested Named Entity Recognition task for Polish, proposing and researching SoTA methods for the problem, gathering results from the team and preparing final submission."
+  tags: ["NLP", "PolEval"]
+
+- name: "AudioScope"
+  logo: /images/sections/projects/poleval2021.png
+  role: Co-Creator
+  timeline: "March 2016 - May 2017"
+  repo: ""
+  summary: "Conducting research and developing a system for identifying phrases in audio recordings."
+  tags: ["NLP", "Research"]
+
+- name: Liner2 and Crete Coreference Tool
+  logo: /images/sections/projects/poleval2021.png
+  role: Researcher / Developer
+  timeline: "October 2020 - October 2021"
+  repo: "https://github.com/CLARIN-PL/Liner2"
+  summary: "Developing a Named Entity Recognition and Coreference Resolution Toolkit"
+  tags: ["NLP", "NER", "Coreference", "Research", "PhD"]
+
+- name: Inforex Annotation Tool
+  logo: /images/sections/projects/poleval2021.png
+  role: Developer
+  timeline: "October 2020 - October 2021"
+  repo: "https://github.com/CLARIN-PL/Inforex"
+  summary: "Inforex is a web system for text corpora construction. Inforex allows parallel access and sharing resources among many users. The system assists semantic annotation of texts on several levels, such as marking text references, creating new references, or marking word senses."
+  tags: ["NLP", "Tools", "Data Collection"]
+
+- name: "CellStar Algorithm"
+  logo: /images/sections/projects/poleval2021.png
+  role: Researcher / Developer
+  timeline: "August 2012 - March 2017"
+  repo: "http://cellstar-algorithm.org"
+  summary: "Automatic tracking of cells in time-lapse microscopy is required to investigate a multitude of biological questions. To limit manipulations during cell line preparation and phototoxicity during imaging, brightfield imaging is often considered. Since the segmentation and tracking of cells in brightfield images is considered to be a difficult and complex task, a number of software solutions have been already developed.
+CellStar is one of such algorithms. It is optimized to segment and track images of budding yeast cells growing in monolayer (e.g. images from microfluidic chambers), however the algorithm can be also used to track other round objects (in brightfield as well as fluorescent images)."
+  tags: ["Research", "Yeast", "Machine Learning", "Computer Vision"]
+
+- name: "Yeast Image Toolkit"
+  logo: /images/sections/projects/poleval2021.png
+  role: Co-Creator
+  timeline: "August 2012 - March 2017"
+  repo: "http://yeast-image-toolkit.biosim.eu"
+  summary: ""
+  tags: ["Research", "Yeast", "Benchmark", "Computer Vision", "Data Collection"]
+
+
+
