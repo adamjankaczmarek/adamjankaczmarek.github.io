@@ -5,3 +5,22 @@
   width: 250px;
   height: 250px;
 }
+
+.content-section {
+  flex: 80%;
+  max-width: 80%;
+}
+
+.sidebar-section {
+  flex: 0%;
+  max-width: 0%;
+}
+
+.twitter-tweet{
+  margin: auto;
+}
+cite{
+  display: block;
+  text-align:right;
+  margin-right: 5%; 
+}
