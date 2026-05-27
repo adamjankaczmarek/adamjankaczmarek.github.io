@@ -1,4 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { POSTS } from "@/lib/posts.data";
 import { useEffect, useState } from "react";
 
 export const Route = createFileRoute("/")({
@@ -73,11 +74,6 @@ const PUBLICATIONS = [
   { title: "CellStar: Algorithm for Yeast Cell Segmentation in Brightfield Microscopy", venue: "Bioinformatics", url: "http://cellstar-algorithm.org/" },
 ];
 
-const POSTS = [
-  { title: "Notes on training ELECTRA from scratch in Polish", date: "Sep 2021", read: "8 min", excerpt: "Lessons learned from pre-training a Polish ELECTRA model on a single 8×V100 node — data curation, masking strategies, and gotchas." },
-  { title: "Few-shot NER across Slavic languages", date: "May 2021", read: "12 min", excerpt: "How meta-learning and cross-lingual transfer can salvage NER quality when annotated data is essentially absent." },
-  { title: "Building reproducible NLP benchmarks", date: "Feb 2021", read: "6 min", excerpt: "What three years of co-organizing PolEval taught me about evaluation design, data leakage, and contestant-friendly tooling." },
-];
 
 function useTypewriter(words: string[], speed = 80) {
   const [text, setText] = useState("");
@@ -344,7 +340,12 @@ function Posts() {
       <SectionHead id="posts" label="writing" title="Blog posts" kicker="Occasional notes from the lab bench and the production trenches." />
       <div className="space-y-3">
         {POSTS.map((p) => (
-          <article key={p.title} className="card-surface p-6 group cursor-pointer">
+          <Link
+            key={p.slug}
+            to="/posts/$postId"
+            params={{ postId: p.slug }}
+            className="card-surface p-6 group block"
+          >
             <div className="flex items-center gap-3 mono text-xs text-muted-foreground mb-2">
               <span>{p.date}</span>
               <span className="w-1 h-1 rounded-full bg-muted-foreground" />
@@ -352,8 +353,20 @@ function Posts() {
             </div>
             <h3 className="text-2xl mb-2 group-hover:text-primary transition-colors">{p.title}</h3>
             <p className="text-sm text-muted-foreground leading-relaxed">{p.excerpt}</p>
-          </article>
+            <div className="mt-3 flex items-center gap-1 text-xs text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+              <span>read post</span>
+              <span>→</span>
+            </div>
+          </Link>
         ))}
+      </div>
+      <div className="mt-6">
+        <Link
+          to="/posts"
+          className="mono text-sm px-5 py-2.5 border border-border rounded-full hover:border-primary transition-colors inline-block"
+        >
+          view all posts →
+        </Link>
       </div>
     </section>
   );
