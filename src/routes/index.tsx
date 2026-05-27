@@ -1,4 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { POSTS } from "@/lib/posts.data";
 import { useEffect, useState } from "react";
 
 export const Route = createFileRoute("/")({
