@@ -74,11 +74,6 @@ const PUBLICATIONS = [
   { title: "CellStar: Algorithm for Yeast Cell Segmentation in Brightfield Microscopy", venue: "Bioinformatics", url: "http://cellstar-algorithm.org/" },
 ];
 
-const POSTS = [
-  { title: "Notes on training ELECTRA from scratch in Polish", date: "Sep 2021", read: "8 min", excerpt: "Lessons learned from pre-training a Polish ELECTRA model on a single 8×V100 node — data curation, masking strategies, and gotchas." },
-  { title: "Few-shot NER across Slavic languages", date: "May 2021", read: "12 min", excerpt: "How meta-learning and cross-lingual transfer can salvage NER quality when annotated data is essentially absent." },
-  { title: "Building reproducible NLP benchmarks", date: "Feb 2021", read: "6 min", excerpt: "What three years of co-organizing PolEval taught me about evaluation design, data leakage, and contestant-friendly tooling." },
-];
 
 function useTypewriter(words: string[], speed = 80) {
   const [text, setText] = useState("");
