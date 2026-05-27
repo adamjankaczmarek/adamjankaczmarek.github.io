@@ -340,7 +340,12 @@ function Posts() {
       <SectionHead id="posts" label="writing" title="Blog posts" kicker="Occasional notes from the lab bench and the production trenches." />
       <div className="space-y-3">
         {POSTS.map((p) => (
-          <article key={p.title} className="card-surface p-6 group cursor-pointer">
+          <Link
+            key={p.slug}
+            to="/posts/$postId"
+            params={{ postId: p.slug }}
+            className="card-surface p-6 group block"
+          >
             <div className="flex items-center gap-3 mono text-xs text-muted-foreground mb-2">
               <span>{p.date}</span>
               <span className="w-1 h-1 rounded-full bg-muted-foreground" />
@@ -348,8 +353,20 @@ function Posts() {
             </div>
             <h3 className="text-2xl mb-2 group-hover:text-primary transition-colors">{p.title}</h3>
             <p className="text-sm text-muted-foreground leading-relaxed">{p.excerpt}</p>
-          </article>
+            <div className="mt-3 flex items-center gap-1 text-xs text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+              <span>read post</span>
+              <span>→</span>
+            </div>
+          </Link>
         ))}
+      </div>
+      <div className="mt-6">
+        <Link
+          to="/posts"
+          className="mono text-sm px-5 py-2.5 border border-border rounded-full hover:border-primary transition-colors inline-block"
+        >
+          view all posts →
+        </Link>
       </div>
     </section>
   );
