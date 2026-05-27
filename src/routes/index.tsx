@@ -1,29 +1,390 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Your App" },
-      { name: "description", content: "Replace this with a one-sentence description of your app." },
-      { property: "og:title", content: "Your App" },
-      { property: "og:description", content: "Replace this with a one-sentence description of your app." },
+      { title: "Adam Jan Kaczmarek — Deep Learning & NLP Engineer" },
+      { name: "description", content: "Portfolio of Adam Jan Kaczmarek — Deep Learning Engineer, NLP researcher, and open-source contributor. Resume, projects, publications, certificates and writing." },
+      { property: "og:title", content: "Adam Jan Kaczmarek — Deep Learning & NLP Engineer" },
+      { property: "og:description", content: "Deep Learning Engineer & NLP researcher. Resume, projects, publications, and writing." },
+      { property: "og:type", content: "website" },
+    ],
+    links: [
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap",
+      },
     ],
   }),
-  component: Index,
+  component: Portfolio,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
+const NAV = [
+  { id: "about", label: "about" },
+  { id: "offer", label: "offer" },
+  { id: "projects", label: "projects" },
+  { id: "skills", label: "skills" },
+  { id: "publications", label: "publications" },
+  { id: "posts", label: "writing" },
+];
+
+const PROJECTS = [
+  { title: "BSNLP 2021 — NER & Linking", role: "Researcher", date: "Dec 2020 – Apr 2021", tags: ["NLP", "NER", "Research"], url: "https://aclanthology.org/2021.bsnlp-1.14/", desc: "Few-shot and zero-shot Named Entity Recognition and coreference resolution across multilingual Slavic languages (Polish, Czech, Ukrainian)." },
+  { title: "PolEval 2021 — Task 1", role: "Co-Creator", date: "Oct 2020 – Oct 2021", tags: ["NLP", "PolEval"], url: "https://github.com/poleval/2021-punctuation-restoration", desc: "Co-authored the punctuation restoration task: data acquisition, annotation guidelines, evaluation metrics, and contestant scoring." },
+  { title: "PolEval 2020 — t-REx for ASR", role: "Researcher / Coordinator", date: "Apr 2020 – Oct 2020", tags: ["ASR", "NLP", "Transformers"], url: "https://github.com/adamjankaczmarek/poleval2020", desc: "Hybrid ASR improvement system: lattice extender + transformer-based utterance rescorer using ELECTRA." },
+  { title: "BSNLP 2019 — Slavic NER", role: "Co-Creator", date: "Mar 2019 – Jun 2019", tags: ["NLP", "NER"], url: "http://bsnlp.cs.helsinki.fi/shared-task.html", desc: "Shared task on multilingual NER and entity disambiguation across Slavic languages." },
+  { title: "PolEval 2018 — Nested NER", role: "Team Leader", date: "May 2018 – Oct 2018", tags: ["NLP", "NER", "PolEval"], url: "http://poleval.pl/files/poleval2018.pdf", desc: "Led a team on Nested Named Entity Recognition for Polish, proposing SoTA methods and final submission." },
+  { title: "Liner2 & Crete Coreference", role: "Researcher / Developer", date: "2020 – 2021", tags: ["NER", "Coreference", "Tools"], url: "https://github.com/CLARIN-PL/Liner2", desc: "Open-source NER and coreference resolution toolkit developed at CLARIN-PL." },
+  { title: "Inforex Annotation Tool", role: "Developer", date: "2020 – 2021", tags: ["NLP", "Annotation"], url: "https://github.com/CLARIN-PL/Inforex", desc: "Web system for collaborative text corpora construction with multi-level semantic annotation." },
+  { title: "CellStar Algorithm", role: "Researcher / Developer", date: "Aug 2012 – Mar 2017", tags: ["CV", "ML", "Bio"], url: "http://cellstar-algorithm.org/", desc: "Automatic segmentation and tracking of budding yeast cells in brightfield time-lapse microscopy." },
+  { title: "Yeast Image Toolkit", role: "Co-Creator", date: "Aug 2012 – Mar 2017", tags: ["CV", "Benchmark"], url: "http://yeast-image-toolkit.biosim.eu/", desc: "Benchmarking platform for cell segmentation and tracking algorithms in microscopy." },
+  { title: "AudioScope", role: "Co-Creator", date: "Mar 2016 – May 2017", tags: ["Audio", "NLP"], url: null, desc: "Research system for identifying spoken phrases in audio recordings." },
+];
+
+const OFFER = [
+  { title: "Deep Learning Engineering", desc: "End-to-end design and training of neural architectures — from data pipelines to production deployment on GPU clusters.", icon: "◈" },
+  { title: "NLP Systems", desc: "Custom language models, NER, coreference, ASR rescoring and information extraction across low-resource languages.", icon: "✦" },
+  { title: "Research & Consulting", desc: "Translating academic SoTA into shippable systems. Literature reviews, prototypes, and reproducible benchmarks.", icon: "❖" },
+  { title: "Open-source Tooling", desc: "Building and contributing to NLP toolkits and annotation platforms used by research communities.", icon: "✺" },
+];
+
+const SKILLS = {
+  "Languages": ["Python", "Scala", "Java", "C++", "Bash", "SQL"],
+  "ML / DL": ["PyTorch", "TensorFlow", "HuggingFace", "scikit-learn", "ONNX", "CUDA"],
+  "NLP": ["Transformers", "ELECTRA", "BERT", "NER", "Coreference", "ASR", "Tokenization"],
+  "Infra": ["Docker", "Kubernetes", "MLflow", "Airflow", "AWS", "Spark"],
+};
+
+const CERTIFICATES = [
+  { name: "PhD candidate — Wrocław University of Science and Technology", year: "ongoing" },
+  { name: "MSc — Computer Science, WUST", year: "2017" },
+  { name: "PolEval Co-organizer", year: "2018–2021" },
+  { name: "BSNLP Shared Task contributor", year: "2019, 2021" },
+];
+
+const PUBLICATIONS = [
+  { title: "Slavic Named Entity Recognition: BSNLP 2021 Shared Task Submission", venue: "BSNLP @ EACL 2021", url: "https://aclanthology.org/2021.bsnlp-1.14/" },
+  { title: "PolEval 2021 Task 1: Punctuation Restoration from Read Text", venue: "PolEval 2021", url: "http://poleval.pl/" },
+  { title: "t-REx: Transformer Rescorer & Extender for ASR", venue: "PolEval 2020", url: "https://github.com/adamjankaczmarek/poleval2020" },
+  { title: "Nested Named Entity Recognition for Polish", venue: "PolEval 2018", url: "http://poleval.pl/files/poleval2018.pdf" },
+  { title: "CellStar: Algorithm for Yeast Cell Segmentation in Brightfield Microscopy", venue: "Bioinformatics", url: "http://cellstar-algorithm.org/" },
+];
+
+const POSTS = [
+  { title: "Notes on training ELECTRA from scratch in Polish", date: "Sep 2021", read: "8 min", excerpt: "Lessons learned from pre-training a Polish ELECTRA model on a single 8×V100 node — data curation, masking strategies, and gotchas." },
+  { title: "Few-shot NER across Slavic languages", date: "May 2021", read: "12 min", excerpt: "How meta-learning and cross-lingual transfer can salvage NER quality when annotated data is essentially absent." },
+  { title: "Building reproducible NLP benchmarks", date: "Feb 2021", read: "6 min", excerpt: "What three years of co-organizing PolEval taught me about evaluation design, data leakage, and contestant-friendly tooling." },
+];
+
+function useTypewriter(words: string[], speed = 80) {
+  const [text, setText] = useState("");
+  const [i, setI] = useState(0);
+  const [del, setDel] = useState(false);
+  useEffect(() => {
+    const w = words[i % words.length];
+    const t = setTimeout(() => {
+      if (!del) {
+        const next = w.slice(0, text.length + 1);
+        setText(next);
+        if (next === w) setTimeout(() => setDel(true), 1600);
+      } else {
+        const next = w.slice(0, text.length - 1);
+        setText(next);
+        if (next === "") { setDel(false); setI((x) => x + 1); }
+      }
+    }, del ? 35 : speed);
+    return () => clearTimeout(t);
+  }, [text, del, i, words, speed]);
+  return text;
+}
+
+function Portfolio() {
+  const phrase = useTypewriter([
+    "a Deep Learning Engineer.",
+    "a Natural Language Processing expert.",
+    "an open-source contributor.",
+    "a researcher who ships.",
+  ]);
+
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
+    <div className="min-h-screen">
+      <Header />
+      <main className="mx-auto max-w-6xl px-6 md:px-10">
+        <Hero phrase={phrase} />
+        <Offer />
+        <Projects />
+        <Skills />
+        <Publications />
+        <Posts />
+      </main>
+      <Footer />
     </div>
+  );
+}
+
+function Header() {
+  return (
+    <header className="sticky top-0 z-50 backdrop-blur-md bg-background/70 border-b border-border">
+      <div className="mx-auto max-w-6xl px-6 md:px-10 h-14 flex items-center justify-between">
+        <a href="#about" className="mono text-sm text-primary">
+          <span className="opacity-60">~/</span>adam.kaczmarek
+        </a>
+        <nav className="hidden md:flex gap-6 mono text-xs text-muted-foreground">
+          {NAV.map((n) => (
+            <a key={n.id} href={`#${n.id}`} className="hover:text-primary transition-colors">
+              {n.label}
+            </a>
+          ))}
+        </nav>
+        <a
+          href="/cv.pdf"
+          className="mono text-xs px-3 py-1.5 border border-primary/40 text-primary rounded-full hover:bg-primary hover:text-primary-foreground transition-colors"
+        >
+          resume ↗
+        </a>
+      </div>
+    </header>
+  );
+}
+
+function Hero({ phrase }: { phrase: string }) {
+  return (
+    <section id="about" className="pt-20 pb-32 md:pt-32 md:pb-40 grid md:grid-cols-[1fr_auto] gap-12 items-center">
+      <div>
+        <div className="mono text-xs text-primary mb-6 flex items-center gap-2">
+          <span className="inline-block w-2 h-2 rounded-full bg-primary animate-pulse" />
+          available for select engagements
+        </div>
+        <h1 className="text-5xl md:text-7xl leading-[1.05] mb-6">
+          Hi, I'm <span className="italic text-accent">Adam</span>.
+          <br />
+          I am{" "}
+          <span className="mono text-2xl md:text-4xl text-primary not-italic">
+            {phrase}
+            <span className="inline-block w-[0.6ch] h-[0.9em] -mb-1 bg-primary animate-pulse ml-0.5" />
+          </span>
+        </h1>
+        <p className="max-w-xl text-muted-foreground text-lg leading-relaxed">
+          Eight years building NLP systems across academia and industry — from yeast cell tracking
+          to multilingual NER and ASR rescoring. I co-organize{" "}
+          <span className="text-foreground">PolEval</span> and contribute to{" "}
+          <span className="text-foreground">CLARIN-PL</span> open-source tooling.
+        </p>
+        <div className="mt-8 flex flex-wrap gap-3">
+          <a href="#projects" className="mono text-sm px-5 py-2.5 bg-primary text-primary-foreground rounded-full hover:opacity-90 transition-opacity">
+            view projects →
+          </a>
+          <a href="mailto:adam.jan.kaczmarek@softwaremill.com" className="mono text-sm px-5 py-2.5 border border-border rounded-full hover:border-primary transition-colors">
+            get in touch
+          </a>
+        </div>
+      </div>
+      <div className="hidden md:block">
+        <div className="relative w-64 h-64">
+          <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary/30 to-accent/30 blur-2xl" />
+          <div className="relative w-full h-full rounded-full border border-border overflow-hidden card-surface flex items-center justify-center">
+            <img
+              src="https://cogito.codes/images/profile_hu2177b61edd9b8b2fe12c8c19d362c492_344938_500x500_fit_box_3.png"
+              alt="Adam Jan Kaczmarek"
+              className="w-full h-full object-cover grayscale contrast-110"
+              loading="eager"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function SectionHead({ id, label, title, kicker }: { id: string; label: string; title: string; kicker?: string }) {
+  return (
+    <div id={id} className="mb-12 scroll-mt-20">
+      <div className="section-label mb-3">// {label}</div>
+      <h2 className="text-4xl md:text-5xl mb-2">{title}</h2>
+      {kicker && <p className="text-muted-foreground max-w-2xl">{kicker}</p>}
+    </div>
+  );
+}
+
+function Offer() {
+  return (
+    <section className="py-20">
+      <SectionHead id="offer" label="what I offer" title="Services" kicker="Engagements range from short-form research sprints to long-term embedded engineering." />
+      <div className="grid md:grid-cols-2 gap-4">
+        {OFFER.map((o) => (
+          <div key={o.title} className="card-surface p-6">
+            <div className="text-3xl text-primary mb-3">{o.icon}</div>
+            <h3 className="text-2xl mb-2">{o.title}</h3>
+            <p className="text-muted-foreground text-sm leading-relaxed">{o.desc}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function Projects() {
+  const [filter, setFilter] = useState<string>("All");
+  const tags = ["All", "NLP", "NER", "Research", "CV", "Tools"];
+  const filtered = filter === "All" ? PROJECTS : PROJECTS.filter((p) => p.tags.includes(filter));
+  return (
+    <section className="py-20">
+      <SectionHead id="projects" label="selected work" title="Projects" kicker="A decade of applied research across NLP, computer vision, and open-source tooling." />
+      <div className="mb-8 flex flex-wrap gap-2">
+        {tags.map((t) => (
+          <button
+            key={t}
+            onClick={() => setFilter(t)}
+            className={`mono text-xs px-3 py-1.5 rounded-full border transition-colors ${
+              filter === t ? "bg-primary text-primary-foreground border-primary" : "border-border text-muted-foreground hover:border-primary/50"
+            }`}
+          >
+            {t.toLowerCase()}
+          </button>
+        ))}
+      </div>
+      <div className="grid md:grid-cols-2 gap-4">
+        {filtered.map((p) => {
+          const Tag: "a" | "div" = p.url ? "a" : "div";
+          const props = p.url ? { href: p.url, target: "_blank", rel: "noreferrer" } : {};
+          return (
+            <Tag key={p.title} {...props} className="card-surface p-6 group block">
+              <div className="flex items-start justify-between gap-4 mb-2">
+                <h3 className="text-xl leading-tight">{p.title}</h3>
+                {p.url && <span className="text-primary opacity-0 group-hover:opacity-100 transition-opacity">↗</span>}
+              </div>
+              <div className="mono text-xs text-muted-foreground mb-3">
+                {p.role} · {p.date}
+              </div>
+              <p className="text-sm text-muted-foreground leading-relaxed mb-4">{p.desc}</p>
+              <div className="flex flex-wrap gap-1.5">
+                {p.tags.map((t) => (
+                  <span key={t} className="chip">{t}</span>
+                ))}
+              </div>
+            </Tag>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+function Skills() {
+  return (
+    <section className="py-20">
+      <SectionHead id="skills" label="toolbox & credentials" title="Skills & Certificates" />
+      <div className="grid md:grid-cols-2 gap-8">
+        <div>
+          <div className="section-label mb-4">stack</div>
+          <div className="space-y-5">
+            {Object.entries(SKILLS).map(([group, items]) => (
+              <div key={group}>
+                <div className="mono text-xs text-muted-foreground mb-2">{group}</div>
+                <div className="flex flex-wrap gap-1.5">
+                  {items.map((s) => (
+                    <span key={s} className="chip chip-accent">{s}</span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div>
+          <div className="section-label mb-4">credentials</div>
+          <ul className="space-y-3">
+            {CERTIFICATES.map((c) => (
+              <li key={c.name} className="card-surface p-4 flex items-center justify-between gap-4">
+                <span className="text-sm">{c.name}</span>
+                <span className="mono text-xs text-primary whitespace-nowrap">{c.year}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Publications() {
+  return (
+    <section className="py-20">
+      <SectionHead id="publications" label="papers & talks" title="Publications" />
+      <ol className="space-y-3">
+        {PUBLICATIONS.map((p, i) => (
+          <li key={p.title}>
+            <a
+              href={p.url}
+              target="_blank"
+              rel="noreferrer"
+              className="card-surface p-5 grid grid-cols-[auto_1fr_auto] gap-5 items-center group"
+            >
+              <span className="mono text-xs text-muted-foreground">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <div>
+                <div className="text-base md:text-lg mb-1">{p.title}</div>
+                <div className="mono text-xs text-primary">{p.venue}</div>
+              </div>
+              <span className="text-primary opacity-0 group-hover:opacity-100 transition-opacity">↗</span>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </section>
+  );
+}
+
+function Posts() {
+  return (
+    <section className="py-20">
+      <SectionHead id="posts" label="writing" title="Blog posts" kicker="Occasional notes from the lab bench and the production trenches." />
+      <div className="space-y-3">
+        {POSTS.map((p) => (
+          <article key={p.title} className="card-surface p-6 group cursor-pointer">
+            <div className="flex items-center gap-3 mono text-xs text-muted-foreground mb-2">
+              <span>{p.date}</span>
+              <span className="w-1 h-1 rounded-full bg-muted-foreground" />
+              <span>{p.read} read</span>
+            </div>
+            <h3 className="text-2xl mb-2 group-hover:text-primary transition-colors">{p.title}</h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">{p.excerpt}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function Footer() {
+  return (
+    <footer className="mt-20 border-t border-border">
+      <div className="mx-auto max-w-6xl px-6 md:px-10 py-12 grid md:grid-cols-2 gap-8 items-end">
+        <div>
+          <h3 className="text-3xl mb-2">Let's build something.</h3>
+          <p className="text-muted-foreground text-sm">
+            Reach out for consulting, research collaboration, or just to talk shop.
+          </p>
+        </div>
+        <div className="mono text-sm space-y-1.5">
+          <a href="mailto:adam.jan.kaczmarek@softwaremill.com" className="block text-primary hover:underline">
+            adam.jan.kaczmarek@softwaremill.com
+          </a>
+          <div className="text-muted-foreground">+48 661 105 014</div>
+          <div className="flex gap-4 pt-2 text-xs">
+            <a href="https://github.com/adamjankaczmarek" target="_blank" rel="noreferrer" className="hover:text-primary">github</a>
+            <a href="https://aclanthology.org/people/a/adam-kaczmarek/" target="_blank" rel="noreferrer" className="hover:text-primary">acl</a>
+            <a href="https://cogito.codes" target="_blank" rel="noreferrer" className="hover:text-primary">cogito.codes</a>
+          </div>
+        </div>
+      </div>
+      <div className="mx-auto max-w-6xl px-6 md:px-10 pb-8 mono text-xs text-muted-foreground flex items-center justify-between border-t border-border pt-6">
+        <span>© {new Date().getFullYear()} Adam Jan Kaczmarek</span>
+        <span>built with care · v1.0</span>
+      </div>
+    </footer>
   );
 }
