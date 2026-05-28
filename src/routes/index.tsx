@@ -106,7 +106,10 @@ function Portfolio() {
   ]);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen relative">
+      <div className="bg-aurora" aria-hidden="true" />
+      <div className="bg-grid" aria-hidden="true" />
+      <div className="bg-noise" aria-hidden="true" />
       <Header />
       <main className="mx-auto max-w-6xl px-6 md:px-10">
         <Hero phrase={phrase} />
