@@ -158,7 +158,7 @@ function Hero({ phrase }: { phrase: string }) {
           available for select engagements
         </div>
         <h1 className="text-5xl md:text-7xl leading-[1.05] mb-6">
-          Hi, I'm <span className="italic text-accent">Adam</span>.
+          Hi, I'm <span className="italic text-gradient">Adam</span>.
           <br />
           I am{" "}
           <span className="mono text-2xl md:text-4xl text-primary not-italic">
@@ -173,10 +173,10 @@ function Hero({ phrase }: { phrase: string }) {
           <span className="text-foreground">CLARIN-PL</span> open-source tooling.
         </p>
         <div className="mt-8 flex flex-wrap gap-3">
-          <a href="#projects" className="mono text-sm px-5 py-2.5 bg-primary text-primary-foreground rounded-full hover:opacity-90 transition-opacity">
+          <a href="#projects" className="btn-primary mono text-sm px-5 py-2.5 rounded-full inline-flex items-center gap-1">
             view projects →
           </a>
-          <a href="mailto:adam.jan.kaczmarek@softwaremill.com" className="mono text-sm px-5 py-2.5 border border-border rounded-full hover:border-primary transition-colors">
+          <a href="mailto:adam.jan.kaczmarek@softwaremill.com" className="mono text-sm px-5 py-2.5 border border-border rounded-full hover:border-primary transition-colors backdrop-blur-sm">
             get in touch
           </a>
         </div>
