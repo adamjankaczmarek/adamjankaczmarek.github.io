@@ -181,7 +181,7 @@ function Hero({ phrase }: { phrase: string }) {
             <img
               src="https://cogito.codes/images/profile_hu2177b61edd9b8b2fe12c8c19d362c492_344938_500x500_fit_box_3.png"
               alt="Adam Jan Kaczmarek"
-              className="w-full h-full object-cover grayscale contrast-110"
+              className="w-full h-full object-cover contrast-110"
               loading="eager"
             />
           </div>
