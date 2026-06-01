@@ -152,6 +152,19 @@ function Portfolio() {
 
   return (
     <div className="min-h-screen relative">
+      <svg width="0" height="0" className="absolute" aria-hidden="true">
+        <defs>
+          <filter id="knockout-white" colorInterpolationFilters="sRGB">
+            <feColorMatrix
+              type="matrix"
+              values="1 0 0 0 0
+                      0 1 0 0 0
+                      0 0 1 0 0
+                      -1 -1 -1 0 3"
+            />
+          </filter>
+        </defs>
+      </svg>
       <div className="bg-aurora" aria-hidden="true" />
       <div className="bg-grid" aria-hidden="true" />
       <div className="bg-noise" aria-hidden="true" />
@@ -389,6 +402,7 @@ function Skills() {
                     src={b.image}
                     alt={b.title}
                     loading="lazy"
+                    style={{ filter: "url(#knockout-white)" }}
                     className="w-28 h-28 object-contain mb-3 drop-shadow-[0_0_18px_rgba(120,180,255,0.25)] group-hover:scale-105 transition-transform"
                   />
                   <div className="text-sm leading-snug mb-1 group-hover:text-primary transition-colors">
