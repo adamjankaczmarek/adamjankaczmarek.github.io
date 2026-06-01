@@ -328,36 +328,88 @@ function Projects() {
   );
 }
 
+function SkillBadge({ skill }: { skill: Skill }) {
+  if (!skill.slug) {
+    return <span className="chip chip-accent">{skill.name}</span>;
+  }
+  return (
+    <span
+      className="group inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-border bg-card/40 backdrop-blur-sm hover:border-primary/60 hover:bg-card/70 transition-colors"
+      title={skill.name}
+    >
+      <img
+        src={`https://cdn.simpleicons.org/${skill.slug}/white`}
+        alt=""
+        aria-hidden="true"
+        loading="lazy"
+        className="w-5 h-5 opacity-80 group-hover:opacity-100 transition-opacity"
+      />
+      <span className="mono text-xs text-muted-foreground group-hover:text-foreground transition-colors">
+        {skill.name}
+      </span>
+    </span>
+  );
+}
+
 function Skills() {
   return (
     <section className="py-20">
       <SectionHead id="skills" label="toolbox & credentials" title="Skills & Certificates" />
-      <div className="grid md:grid-cols-2 gap-8">
+      <div className="space-y-12">
         <div>
           <div className="section-label mb-4">stack</div>
-          <div className="space-y-5">
+          <div className="space-y-6">
             {Object.entries(SKILLS).map(([group, items]) => (
               <div key={group}>
-                <div className="mono text-xs text-muted-foreground mb-2">{group}</div>
-                <div className="flex flex-wrap gap-1.5">
+                <div className="mono text-xs text-muted-foreground mb-3">{group}</div>
+                <div className="flex flex-wrap gap-2">
                   {items.map((s) => (
-                    <span key={s} className="chip chip-accent">{s}</span>
+                    <SkillBadge key={s.name} skill={s} />
                   ))}
                 </div>
               </div>
             ))}
           </div>
         </div>
-        <div>
-          <div className="section-label mb-4">credentials</div>
-          <ul className="space-y-3">
-            {CERTIFICATES.map((c) => (
-              <li key={c.name} className="card-surface p-4 flex items-center justify-between gap-4">
-                <span className="text-sm">{c.name}</span>
-                <span className="mono text-xs text-primary whitespace-nowrap">{c.year}</span>
-              </li>
-            ))}
-          </ul>
+
+        <div className="grid md:grid-cols-2 gap-8">
+          <div>
+            <div className="section-label mb-4">certifications</div>
+            <div className="grid grid-cols-2 gap-4">
+              {BADGES.map((b) => (
+                <a
+                  key={b.title}
+                  href={b.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="card-surface p-5 flex flex-col items-center text-center group"
+                  title={b.title}
+                >
+                  <img
+                    src={b.image}
+                    alt={b.title}
+                    loading="lazy"
+                    className="w-28 h-28 object-contain mb-3 drop-shadow-[0_0_18px_rgba(120,180,255,0.25)] group-hover:scale-105 transition-transform"
+                  />
+                  <div className="text-sm leading-snug mb-1 group-hover:text-primary transition-colors">
+                    {b.title}
+                  </div>
+                  <div className="mono text-[10px] text-muted-foreground">{b.issuer}</div>
+                </a>
+              ))}
+            </div>
+          </div>
+          <div>
+            <div className="section-label mb-4">credentials</div>
+            <ul className="space-y-3">
+              {CERTIFICATES.map((c) => (
+                <li key={c.name} className="card-surface p-4 flex items-center justify-between gap-4">
+                  <span className="text-sm">{c.name}</span>
+                  <span className="mono text-xs text-primary whitespace-nowrap">{c.year}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </section>
