@@ -162,7 +162,6 @@ function Portfolio() {
                       0 0 1 0 0
                       -1 -1 -1 0 3"
             />
-            <feComposite in="SourceGraphic" in2="this" operator="in" />
           </filter>
         </defs>
       </svg>
