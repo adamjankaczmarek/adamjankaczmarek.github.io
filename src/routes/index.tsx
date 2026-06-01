@@ -250,7 +250,18 @@ function Projects() {
           const Tag: "a" | "div" = p.url ? "a" : "div";
           const props = p.url ? { href: p.url, target: "_blank", rel: "noreferrer" } : {};
           return (
-            <Tag key={p.title} {...props} className="card-surface p-6 group block">
+            <Tag key={p.title} {...props} className="card-surface p-6 group block relative overflow-hidden isolate">
+              {p.bg && (
+                <div
+                  aria-hidden="true"
+                  className="absolute inset-0 -z-10 bg-cover bg-center opacity-60 group-hover:opacity-80 transition-opacity duration-500"
+                  style={{
+                    backgroundImage: `url(${p.bg})`,
+                    WebkitMaskImage: "linear-gradient(135deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 85%)",
+                    maskImage: "linear-gradient(135deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 85%)",
+                  }}
+                />
+              )}
               <div className="flex items-start justify-between gap-4 mb-2">
                 <h3 className="text-xl leading-tight">{p.title}</h3>
                 {p.url && <span className="text-primary opacity-0 group-hover:opacity-100 transition-opacity">↗</span>}
