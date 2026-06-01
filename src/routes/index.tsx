@@ -52,12 +52,57 @@ const OFFER = [
   { title: "Open-source Tooling", desc: "Building and contributing to NLP toolkits and annotation platforms used by research communities.", icon: "✺" },
 ];
 
-const SKILLS = {
-  "Languages": ["Python", "Scala", "Java", "C++", "Bash", "SQL"],
-  "ML / DL": ["PyTorch", "TensorFlow", "HuggingFace", "scikit-learn", "ONNX", "CUDA"],
-  "NLP": ["Transformers", "ELECTRA", "BERT", "NER", "Coreference", "ASR", "Tokenization"],
-  "Infra": ["Docker", "Kubernetes", "MLflow", "Airflow", "AWS", "Spark"],
+type Skill = { name: string; slug?: string };
+const SKILLS: Record<string, Skill[]> = {
+  "Languages": [
+    { name: "Python", slug: "python" },
+    { name: "Scala", slug: "scala" },
+    { name: "Java", slug: "openjdk" },
+    { name: "C++", slug: "cplusplus" },
+    { name: "Bash", slug: "gnubash" },
+    { name: "SQL", slug: "postgresql" },
+  ],
+  "ML / DL": [
+    { name: "PyTorch", slug: "pytorch" },
+    { name: "TensorFlow", slug: "tensorflow" },
+    { name: "HuggingFace", slug: "huggingface" },
+    { name: "scikit-learn", slug: "scikitlearn" },
+    { name: "ONNX", slug: "onnx" },
+    { name: "CUDA", slug: "nvidia" },
+  ],
+  "NLP": [
+    { name: "Transformers" },
+    { name: "ELECTRA" },
+    { name: "BERT" },
+    { name: "NER" },
+    { name: "Coreference" },
+    { name: "ASR" },
+    { name: "Tokenization" },
+  ],
+  "Infra": [
+    { name: "Docker", slug: "docker" },
+    { name: "Kubernetes", slug: "kubernetes" },
+    { name: "MLflow", slug: "mlflow" },
+    { name: "Airflow", slug: "apacheairflow" },
+    { name: "AWS", slug: "amazonwebservices" },
+    { name: "Spark", slug: "apachespark" },
+  ],
 };
+
+const BADGES = [
+  {
+    title: "NVIDIA Certified Professional: Gen AI LLMs",
+    issuer: "NVIDIA · 2026",
+    image: "https://images.credly.com/size/340x340/images/4b94e285-07f8-484f-9bb5-aff9d9d5c709/blob",
+    url: "https://www.credly.com/badges/c3ceb478-53d2-4263-ac5f-ac8b52aa6096/public_url",
+  },
+  {
+    title: "NVIDIA Certified Professional: Agentic AI",
+    issuer: "NVIDIA · 2026",
+    image: "https://images.credly.com/size/340x340/images/9c5ac530-3a82-4970-ad25-d50fbe755ccb/blob",
+    url: "https://www.credly.com/badges/283a3e6f-93b9-48b6-92c5-fd0d9632a3ef/public_url",
+  },
+];
 
 const CERTIFICATES = [
   { name: "PhD candidate — Wrocław University of Science and Technology", year: "ongoing" },
