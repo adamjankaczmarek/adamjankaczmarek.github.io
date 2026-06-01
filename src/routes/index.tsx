@@ -1,6 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { POSTS } from "@/lib/posts.data";
 import { useEffect, useState } from "react";
+import bgYeast from "@/assets/projects/yeast.jpg";
+import bgNer from "@/assets/projects/ner.jpg";
+import bgPunct from "@/assets/projects/punctuation.jpg";
+import bgAsr from "@/assets/projects/asr.jpg";
+import bgGraph from "@/assets/projects/graph.jpg";
+import bgAnnot from "@/assets/projects/annotation.jpg";
+import bgAudio from "@/assets/projects/audio.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -26,16 +33,16 @@ const NAV = [
 ];
 
 const PROJECTS = [
-  { title: "BSNLP 2021 — NER & Linking", role: "Researcher", date: "Dec 2020 – Apr 2021", tags: ["NLP", "NER", "Research"], url: "https://aclanthology.org/2021.bsnlp-1.14/", desc: "Few-shot and zero-shot Named Entity Recognition and coreference resolution across multilingual Slavic languages (Polish, Czech, Ukrainian)." },
-  { title: "PolEval 2021 — Task 1", role: "Co-Creator", date: "Oct 2020 – Oct 2021", tags: ["NLP", "PolEval"], url: "https://github.com/poleval/2021-punctuation-restoration", desc: "Co-authored the punctuation restoration task: data acquisition, annotation guidelines, evaluation metrics, and contestant scoring." },
-  { title: "PolEval 2020 — t-REx for ASR", role: "Researcher / Coordinator", date: "Apr 2020 – Oct 2020", tags: ["ASR", "NLP", "Transformers"], url: "https://github.com/adamjankaczmarek/poleval2020", desc: "Hybrid ASR improvement system: lattice extender + transformer-based utterance rescorer using ELECTRA." },
-  { title: "BSNLP 2019 — Slavic NER", role: "Co-Creator", date: "Mar 2019 – Jun 2019", tags: ["NLP", "NER"], url: "http://bsnlp.cs.helsinki.fi/shared-task.html", desc: "Shared task on multilingual NER and entity disambiguation across Slavic languages." },
-  { title: "PolEval 2018 — Nested NER", role: "Team Leader", date: "May 2018 – Oct 2018", tags: ["NLP", "NER", "PolEval"], url: "http://poleval.pl/files/poleval2018.pdf", desc: "Led a team on Nested Named Entity Recognition for Polish, proposing SoTA methods and final submission." },
-  { title: "Liner2 & Crete Coreference", role: "Researcher / Developer", date: "2020 – 2021", tags: ["NER", "Coreference", "Tools"], url: "https://github.com/CLARIN-PL/Liner2", desc: "Open-source NER and coreference resolution toolkit developed at CLARIN-PL." },
-  { title: "Inforex Annotation Tool", role: "Developer", date: "2020 – 2021", tags: ["NLP", "Annotation"], url: "https://github.com/CLARIN-PL/Inforex", desc: "Web system for collaborative text corpora construction with multi-level semantic annotation." },
-  { title: "CellStar Algorithm", role: "Researcher / Developer", date: "Aug 2012 – Mar 2017", tags: ["CV", "ML", "Bio"], url: "http://cellstar-algorithm.org/", desc: "Automatic segmentation and tracking of budding yeast cells in brightfield time-lapse microscopy." },
-  { title: "Yeast Image Toolkit", role: "Co-Creator", date: "Aug 2012 – Mar 2017", tags: ["CV", "Benchmark"], url: "http://yeast-image-toolkit.biosim.eu/", desc: "Benchmarking platform for cell segmentation and tracking algorithms in microscopy." },
-  { title: "AudioScope", role: "Co-Creator", date: "Mar 2016 – May 2017", tags: ["Audio", "NLP"], url: null, desc: "Research system for identifying spoken phrases in audio recordings." },
+  { title: "BSNLP 2021 — NER & Linking", role: "Researcher", date: "Dec 2020 – Apr 2021", tags: ["NLP", "NER", "Research"], url: "https://aclanthology.org/2021.bsnlp-1.14/", desc: "Few-shot and zero-shot Named Entity Recognition and coreference resolution across multilingual Slavic languages (Polish, Czech, Ukrainian).", bg: bgNer },
+  { title: "PolEval 2021 — Task 1", role: "Co-Creator", date: "Oct 2020 – Oct 2021", tags: ["NLP", "PolEval"], url: "https://github.com/poleval/2021-punctuation-restoration", desc: "Co-authored the punctuation restoration task: data acquisition, annotation guidelines, evaluation metrics, and contestant scoring.", bg: bgPunct },
+  { title: "PolEval 2020 — t-REx for ASR", role: "Researcher / Coordinator", date: "Apr 2020 – Oct 2020", tags: ["ASR", "NLP", "Transformers"], url: "https://github.com/adamjankaczmarek/poleval2020", desc: "Hybrid ASR improvement system: lattice extender + transformer-based utterance rescorer using ELECTRA.", bg: bgAsr },
+  { title: "BSNLP 2019 — Slavic NER", role: "Co-Creator", date: "Mar 2019 – Jun 2019", tags: ["NLP", "NER"], url: "http://bsnlp.cs.helsinki.fi/shared-task.html", desc: "Shared task on multilingual NER and entity disambiguation across Slavic languages.", bg: bgGraph },
+  { title: "PolEval 2018 — Nested NER", role: "Team Leader", date: "May 2018 – Oct 2018", tags: ["NLP", "NER", "PolEval"], url: "http://poleval.pl/files/poleval2018.pdf", desc: "Led a team on Nested Named Entity Recognition for Polish, proposing SoTA methods and final submission.", bg: bgNer },
+  { title: "Liner2 & Crete Coreference", role: "Researcher / Developer", date: "2020 – 2021", tags: ["NER", "Coreference", "Tools"], url: "https://github.com/CLARIN-PL/Liner2", desc: "Open-source NER and coreference resolution toolkit developed at CLARIN-PL.", bg: bgGraph },
+  { title: "Inforex Annotation Tool", role: "Developer", date: "2020 – 2021", tags: ["NLP", "Annotation"], url: "https://github.com/CLARIN-PL/Inforex", desc: "Web system for collaborative text corpora construction with multi-level semantic annotation.", bg: bgAnnot },
+  { title: "CellStar Algorithm", role: "Researcher / Developer", date: "Aug 2012 – Mar 2017", tags: ["CV", "ML", "Bio"], url: "http://cellstar-algorithm.org/", desc: "Automatic segmentation and tracking of budding yeast cells in brightfield time-lapse microscopy.", bg: bgYeast },
+  { title: "Yeast Image Toolkit", role: "Co-Creator", date: "Aug 2012 – Mar 2017", tags: ["CV", "Benchmark"], url: "http://yeast-image-toolkit.biosim.eu/", desc: "Benchmarking platform for cell segmentation and tracking algorithms in microscopy.", bg: bgYeast },
+  { title: "AudioScope", role: "Co-Creator", date: "Mar 2016 – May 2017", tags: ["Audio", "NLP"], url: null, desc: "Research system for identifying spoken phrases in audio recordings.", bg: bgAudio },
 ];
 
 const OFFER = [
@@ -243,7 +250,18 @@ function Projects() {
           const Tag: "a" | "div" = p.url ? "a" : "div";
           const props = p.url ? { href: p.url, target: "_blank", rel: "noreferrer" } : {};
           return (
-            <Tag key={p.title} {...props} className="card-surface p-6 group block">
+            <Tag key={p.title} {...props} className="card-surface p-6 group block relative overflow-hidden isolate">
+              {p.bg && (
+                <div
+                  aria-hidden="true"
+                  className="absolute inset-0 -z-10 bg-cover bg-center opacity-60 group-hover:opacity-80 transition-opacity duration-500"
+                  style={{
+                    backgroundImage: `url(${p.bg})`,
+                    WebkitMaskImage: "linear-gradient(135deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 85%)",
+                    maskImage: "linear-gradient(135deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 85%)",
+                  }}
+                />
+              )}
               <div className="flex items-start justify-between gap-4 mb-2">
                 <h3 className="text-xl leading-tight">{p.title}</h3>
                 {p.url && <span className="text-primary opacity-0 group-hover:opacity-100 transition-opacity">↗</span>}
