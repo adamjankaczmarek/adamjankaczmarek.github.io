@@ -389,6 +389,7 @@ function Skills() {
                     src={b.image}
                     alt={b.title}
                     loading="lazy"
+                    style={{ filter: "url(#knockout-white)" }}
                     className="w-28 h-28 object-contain mb-3 drop-shadow-[0_0_18px_rgba(120,180,255,0.25)] group-hover:scale-105 transition-transform"
                   />
                   <div className="text-sm leading-snug mb-1 group-hover:text-primary transition-colors">
