@@ -51,6 +51,27 @@
   --grad-primary: linear-gradient(135deg, oklch(0.80 0.15 200), oklch(0.72 0.20 295));
 }
 
+.light {
+  /* Airy off-white background */
+  --background: oklch(0.985 0.005 240);
+  --foreground: oklch(0.20 0.03 265);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.20 0.03 265);
+  --muted: oklch(0.95 0.01 250);
+  --muted-foreground: oklch(0.45 0.03 260);
+  /* Violet accent (slightly deeper for contrast on light) */
+  --accent: oklch(0.52 0.22 295);
+  --accent-foreground: oklch(0.985 0.005 240);
+  /* Teal/turquoise primary (deeper for contrast) */
+  --primary: oklch(0.52 0.13 210);
+  --primary-foreground: oklch(0.985 0.005 240);
+  --border: oklch(0.88 0.015 255);
+  --ring: oklch(0.52 0.13 210);
+  --terminal: oklch(0.52 0.13 210);
+
+  --grad-primary: linear-gradient(135deg, oklch(0.55 0.14 210), oklch(0.52 0.22 295));
+}
+
 @layer base {
   * { border-color: var(--color-border); }
   html { scroll-behavior: smooth; }
