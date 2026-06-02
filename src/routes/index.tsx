@@ -8,6 +8,19 @@ import bgAsr from "@/assets/projects/asr.jpg";
 import bgGraph from "@/assets/projects/graph.jpg";
 import bgAnnot from "@/assets/projects/annotation.jpg";
 import bgAudio from "@/assets/projects/audio.jpg";
+import bgSrvDl from "@/assets/services/deeplearning.jpg";
+import bgSrvNlp from "@/assets/services/nlp.jpg";
+import bgSrvRes from "@/assets/services/research.jpg";
+import bgSrvOss from "@/assets/services/opensource.jpg";
+import bgPostElectra from "@/assets/posts/electra.jpg";
+import bgPostFewshot from "@/assets/posts/fewshot.jpg";
+import bgPostBench from "@/assets/posts/benchmarks.jpg";
+
+const POST_BG: Record<string, string> = {
+  "electra-polish": bgPostElectra,
+  "few-shot-ner-slavic": bgPostFewshot,
+  "reproducible-nlp-benchmarks": bgPostBench,
+};
 
 export const Route = createFileRoute("/")({
   head: () => ({
