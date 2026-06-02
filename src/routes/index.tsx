@@ -162,10 +162,6 @@ function useTheme(): [Theme, () => void] {
   return [theme, toggle];
 }
 
-const ThemeContext = ((): { useThemeValue: () => Theme } => {
-  // simple module-scoped store via re-render through context-less hook
-  return { useThemeValue: () => "dark" };
-})();
 
 function Portfolio() {
   const phrase = useTypewriter([
