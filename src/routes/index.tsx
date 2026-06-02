@@ -170,6 +170,7 @@ function Portfolio() {
     "an open-source contributor.",
     "a researcher who ships.",
   ]);
+  const [theme, toggleTheme] = useTheme();
 
   return (
     <div className="min-h-screen relative">
@@ -189,12 +190,12 @@ function Portfolio() {
       <div className="bg-aurora" aria-hidden="true" />
       <div className="bg-grid" aria-hidden="true" />
       <div className="bg-noise" aria-hidden="true" />
-      <Header />
+      <Header theme={theme} toggleTheme={toggleTheme} />
       <main className="mx-auto max-w-6xl px-6 md:px-10">
         <Hero phrase={phrase} />
         <Offer />
         <Projects />
-        <Skills />
+        <Skills theme={theme} />
         <Publications />
         <Posts />
       </main>
@@ -203,7 +204,7 @@ function Portfolio() {
   );
 }
 
-function Header() {
+function Header({ theme, toggleTheme }: { theme: Theme; toggleTheme: () => void }) {
   return (
     <header className="sticky top-0 z-50 backdrop-blur-md bg-background/70 border-b border-border">
       <div className="mx-auto max-w-6xl px-6 md:px-10 h-14 flex items-center justify-between">
