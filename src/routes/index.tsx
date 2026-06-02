@@ -513,26 +513,36 @@ function Posts() {
     <section className="py-20">
       <SectionHead id="posts" label="writing" title="Blog posts" kicker="Occasional notes from the lab bench and the production trenches." />
       <div className="space-y-3">
-        {POSTS.map((p) => (
-          <Link
-            key={p.slug}
-            to="/posts/$postId"
-            params={{ postId: p.slug }}
-            className="card-surface p-6 group block"
-          >
-            <div className="flex items-center gap-3 mono text-xs text-muted-foreground mb-2">
-              <span>{p.date}</span>
-              <span className="w-1 h-1 rounded-full bg-muted-foreground" />
-              <span>{p.read} read</span>
-            </div>
-            <h3 className="text-2xl mb-2 group-hover:text-primary transition-colors">{p.title}</h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">{p.excerpt}</p>
-            <div className="mt-3 flex items-center gap-1 text-xs text-primary opacity-0 group-hover:opacity-100 transition-opacity">
-              <span>read post</span>
-              <span>→</span>
-            </div>
-          </Link>
-        ))}
+        {POSTS.map((p) => {
+          const bg = POST_BG[p.slug];
+          return (
+            <Link
+              key={p.slug}
+              to="/posts/$postId"
+              params={{ postId: p.slug }}
+              className="card-surface p-6 group block relative overflow-hidden isolate"
+            >
+              {bg && (
+                <div
+                  aria-hidden="true"
+                  className="tile-bg-right"
+                  style={{ backgroundImage: `url(${bg})` }}
+                />
+              )}
+              <div className="flex items-center gap-3 mono text-xs text-muted-foreground mb-2">
+                <span>{p.date}</span>
+                <span className="w-1 h-1 rounded-full bg-muted-foreground" />
+                <span>{p.read} read</span>
+              </div>
+              <h3 className="text-2xl mb-2 group-hover:text-primary transition-colors">{p.title}</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">{p.excerpt}</p>
+              <div className="mt-3 flex items-center gap-1 text-xs text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+                <span>read post</span>
+                <span>→</span>
+              </div>
+            </Link>
+          );
+        })}
       </div>
       <div className="mt-6">
         <Link
