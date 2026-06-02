@@ -142,6 +142,31 @@ function useTypewriter(words: string[], speed = 80) {
   return text;
 }
 
+type Theme = "dark" | "light";
+function useTheme(): [Theme, () => void] {
+  const [theme, setTheme] = useState<Theme>("dark");
+  useEffect(() => {
+    const stored = (typeof localStorage !== "undefined" && localStorage.getItem("theme")) as Theme | null;
+    const prefersLight = typeof window !== "undefined" && window.matchMedia?.("(prefers-color-scheme: light)").matches;
+    const initial: Theme = stored ?? (prefersLight ? "light" : "dark");
+    setTheme(initial);
+  }, []);
+  useEffect(() => {
+    const root = document.documentElement;
+    root.classList.toggle("light", theme === "light");
+    root.classList.toggle("dark", theme === "dark");
+    root.style.colorScheme = theme;
+    try { localStorage.setItem("theme", theme); } catch {}
+  }, [theme]);
+  const toggle = () => setTheme((t) => (t === "dark" ? "light" : "dark"));
+  return [theme, toggle];
+}
+
+const ThemeContext = ((): { useThemeValue: () => Theme } => {
+  // simple module-scoped store via re-render through context-less hook
+  return { useThemeValue: () => "dark" };
+})();
+
 function Portfolio() {
   const phrase = useTypewriter([
     "a Deep Learning Engineer.",
