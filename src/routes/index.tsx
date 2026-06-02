@@ -317,7 +317,14 @@ function Offer() {
       <SectionHead id="offer" label="what I offer" title="Services" kicker="Engagements range from short-form research sprints to long-term embedded engineering." />
       <div className="grid md:grid-cols-2 gap-4">
         {OFFER.map((o) => (
-          <div key={o.title} className="card-surface p-6">
+          <div key={o.title} className="card-surface p-6 group relative overflow-hidden isolate">
+            {o.bg && (
+              <div
+                aria-hidden="true"
+                className="tile-bg"
+                style={{ backgroundImage: `url(${o.bg})` }}
+              />
+            )}
             <div className="text-3xl text-primary mb-3">{o.icon}</div>
             <h3 className="text-2xl mb-2">{o.title}</h3>
             <p className="text-muted-foreground text-sm leading-relaxed">{o.desc}</p>
