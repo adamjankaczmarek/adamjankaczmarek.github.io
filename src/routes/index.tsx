@@ -373,17 +373,18 @@ function Projects() {
   );
 }
 
-function SkillBadge({ skill }: { skill: Skill }) {
+function SkillBadge({ skill, theme }: { skill: Skill; theme: Theme }) {
   if (!skill.slug) {
     return <span className="chip chip-accent">{skill.name}</span>;
   }
+  const iconColor = theme === "light" ? "1f2a44" : "white";
   return (
     <span
       className="group inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-border bg-card/40 backdrop-blur-sm hover:border-primary/60 hover:bg-card/70 transition-colors"
       title={skill.name}
     >
       <img
-        src={`https://cdn.simpleicons.org/${skill.slug}/white`}
+        src={`https://cdn.simpleicons.org/${skill.slug}/${iconColor}`}
         alt=""
         aria-hidden="true"
         loading="lazy"
@@ -396,7 +397,7 @@ function SkillBadge({ skill }: { skill: Skill }) {
   );
 }
 
-function Skills() {
+function Skills({ theme }: { theme: Theme }) {
   return (
     <section className="py-20">
       <SectionHead id="skills" label="toolbox & credentials" title="Skills & Certificates" />
@@ -409,7 +410,7 @@ function Skills() {
                 <div className="mono text-xs text-muted-foreground mb-3">{group}</div>
                 <div className="flex flex-wrap gap-2">
                   {items.map((s) => (
-                    <SkillBadge key={s.name} skill={s} />
+                    <SkillBadge key={s.name} skill={s} theme={theme} />
                   ))}
                 </div>
               </div>
