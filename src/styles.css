@@ -239,6 +239,53 @@
     transition: transform 200ms ease, box-shadow 200ms ease, filter 200ms ease;
   }
   .btn-primary:hover { transform: translateY(-1px); filter: brightness(1.05); }
+
+  /* Decorative tile backgrounds — theme-aware.
+     Diagonal fade (upper-left → lower-right) used for projects & services. */
+  .tile-bg {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-size: cover;
+    background-position: center;
+    pointer-events: none;
+    opacity: 0.55;
+    transition: opacity 500ms ease;
+    -webkit-mask-image: linear-gradient(135deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 85%);
+            mask-image: linear-gradient(135deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 85%);
+  }
+  .group:hover .tile-bg { opacity: 0.78; }
+
+  /* Right → center fade, used for blog post tiles. */
+  .tile-bg-right {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-size: cover;
+    background-position: right center;
+    pointer-events: none;
+    opacity: 0.55;
+    transition: opacity 500ms ease;
+    -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 60%);
+            mask-image: linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 60%);
+  }
+  .group:hover .tile-bg-right { opacity: 0.78; }
+
+  /* Dark theme: invert white-paper illustrations so dark ink reads as light glyphs,
+     and screen-blend onto the dark surface. */
+  .dark .tile-bg,
+  .dark .tile-bg-right {
+    filter: invert(1) hue-rotate(180deg) brightness(1.05) contrast(0.9);
+    mix-blend-mode: screen;
+  }
+  /* Light theme: keep originals, multiply for delicate ink on paper. */
+  .light .tile-bg,
+  .light .tile-bg-right {
+    opacity: 0.35;
+    mix-blend-mode: multiply;
+  }
+  .light .group:hover .tile-bg,
+  .light .group:hover .tile-bg-right { opacity: 0.55; }
 }
 
 @media (prefers-reduced-motion: reduce) {

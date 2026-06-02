@@ -8,6 +8,19 @@ import bgAsr from "@/assets/projects/asr.jpg";
 import bgGraph from "@/assets/projects/graph.jpg";
 import bgAnnot from "@/assets/projects/annotation.jpg";
 import bgAudio from "@/assets/projects/audio.jpg";
+import bgSrvDl from "@/assets/services/deeplearning.jpg";
+import bgSrvNlp from "@/assets/services/nlp.jpg";
+import bgSrvRes from "@/assets/services/research.jpg";
+import bgSrvOss from "@/assets/services/opensource.jpg";
+import bgPostElectra from "@/assets/posts/electra.jpg";
+import bgPostFewshot from "@/assets/posts/fewshot.jpg";
+import bgPostBench from "@/assets/posts/benchmarks.jpg";
+
+const POST_BG: Record<string, string> = {
+  "electra-polish": bgPostElectra,
+  "few-shot-ner-slavic": bgPostFewshot,
+  "reproducible-nlp-benchmarks": bgPostBench,
+};
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -46,10 +59,10 @@ const PROJECTS = [
 ];
 
 const OFFER = [
-  { title: "Deep Learning Engineering", desc: "End-to-end design and training of neural architectures — from data pipelines to production deployment on GPU clusters.", icon: "◈" },
-  { title: "NLP Systems", desc: "Custom language models, NER, coreference, ASR rescoring and information extraction across low-resource languages.", icon: "✦" },
-  { title: "Research & Consulting", desc: "Translating academic SoTA into shippable systems. Literature reviews, prototypes, and reproducible benchmarks.", icon: "❖" },
-  { title: "Open-source Tooling", desc: "Building and contributing to NLP toolkits and annotation platforms used by research communities.", icon: "✺" },
+  { title: "Deep Learning Engineering", desc: "End-to-end design and training of neural architectures — from data pipelines to production deployment on GPU clusters.", icon: "◈", bg: bgSrvDl },
+  { title: "NLP Systems", desc: "Custom language models, NER, coreference, ASR rescoring and information extraction across low-resource languages.", icon: "✦", bg: bgSrvNlp },
+  { title: "Research & Consulting", desc: "Translating academic SoTA into shippable systems. Literature reviews, prototypes, and reproducible benchmarks.", icon: "❖", bg: bgSrvRes },
+  { title: "Open-source Tooling", desc: "Building and contributing to NLP toolkits and annotation platforms used by research communities.", icon: "✺", bg: bgSrvOss },
 ];
 
 type Skill = { name: string; slug?: string };
@@ -304,7 +317,14 @@ function Offer() {
       <SectionHead id="offer" label="what I offer" title="Services" kicker="Engagements range from short-form research sprints to long-term embedded engineering." />
       <div className="grid md:grid-cols-2 gap-4">
         {OFFER.map((o) => (
-          <div key={o.title} className="card-surface p-6">
+          <div key={o.title} className="card-surface p-6 group relative overflow-hidden isolate">
+            {o.bg && (
+              <div
+                aria-hidden="true"
+                className="tile-bg"
+                style={{ backgroundImage: `url(${o.bg})` }}
+              />
+            )}
             <div className="text-3xl text-primary mb-3">{o.icon}</div>
             <h3 className="text-2xl mb-2">{o.title}</h3>
             <p className="text-muted-foreground text-sm leading-relaxed">{o.desc}</p>
@@ -344,12 +364,8 @@ function Projects() {
               {p.bg && (
                 <div
                   aria-hidden="true"
-                  className="absolute inset-0 -z-10 bg-cover bg-center opacity-60 group-hover:opacity-80 transition-opacity duration-500"
-                  style={{
-                    backgroundImage: `url(${p.bg})`,
-                    WebkitMaskImage: "linear-gradient(135deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 85%)",
-                    maskImage: "linear-gradient(135deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 85%)",
-                  }}
+                  className="tile-bg"
+                  style={{ backgroundImage: `url(${p.bg})` }}
                 />
               )}
               <div className="flex items-start justify-between gap-4 mb-2">
@@ -497,26 +513,36 @@ function Posts() {
     <section className="py-20">
       <SectionHead id="posts" label="writing" title="Blog posts" kicker="Occasional notes from the lab bench and the production trenches." />
       <div className="space-y-3">
-        {POSTS.map((p) => (
-          <Link
-            key={p.slug}
-            to="/posts/$postId"
-            params={{ postId: p.slug }}
-            className="card-surface p-6 group block"
-          >
-            <div className="flex items-center gap-3 mono text-xs text-muted-foreground mb-2">
-              <span>{p.date}</span>
-              <span className="w-1 h-1 rounded-full bg-muted-foreground" />
-              <span>{p.read} read</span>
-            </div>
-            <h3 className="text-2xl mb-2 group-hover:text-primary transition-colors">{p.title}</h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">{p.excerpt}</p>
-            <div className="mt-3 flex items-center gap-1 text-xs text-primary opacity-0 group-hover:opacity-100 transition-opacity">
-              <span>read post</span>
-              <span>→</span>
-            </div>
-          </Link>
-        ))}
+        {POSTS.map((p) => {
+          const bg = POST_BG[p.slug];
+          return (
+            <Link
+              key={p.slug}
+              to="/posts/$postId"
+              params={{ postId: p.slug }}
+              className="card-surface p-6 group block relative overflow-hidden isolate"
+            >
+              {bg && (
+                <div
+                  aria-hidden="true"
+                  className="tile-bg-right"
+                  style={{ backgroundImage: `url(${bg})` }}
+                />
+              )}
+              <div className="flex items-center gap-3 mono text-xs text-muted-foreground mb-2">
+                <span>{p.date}</span>
+                <span className="w-1 h-1 rounded-full bg-muted-foreground" />
+                <span>{p.read} read</span>
+              </div>
+              <h3 className="text-2xl mb-2 group-hover:text-primary transition-colors">{p.title}</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">{p.excerpt}</p>
+              <div className="mt-3 flex items-center gap-1 text-xs text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+                <span>read post</span>
+                <span>→</span>
+              </div>
+            </Link>
+          );
+        })}
       </div>
       <div className="mt-6">
         <Link
