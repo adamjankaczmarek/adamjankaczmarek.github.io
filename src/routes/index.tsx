@@ -142,6 +142,27 @@ function useTypewriter(words: string[], speed = 80) {
   return text;
 }
 
+type Theme = "dark" | "light";
+function useTheme(): [Theme, () => void] {
+  const [theme, setTheme] = useState<Theme>("dark");
+  useEffect(() => {
+    const stored = (typeof localStorage !== "undefined" && localStorage.getItem("theme")) as Theme | null;
+    const prefersLight = typeof window !== "undefined" && window.matchMedia?.("(prefers-color-scheme: light)").matches;
+    const initial: Theme = stored ?? (prefersLight ? "light" : "dark");
+    setTheme(initial);
+  }, []);
+  useEffect(() => {
+    const root = document.documentElement;
+    root.classList.toggle("light", theme === "light");
+    root.classList.toggle("dark", theme === "dark");
+    root.style.colorScheme = theme;
+    try { localStorage.setItem("theme", theme); } catch {}
+  }, [theme]);
+  const toggle = () => setTheme((t) => (t === "dark" ? "light" : "dark"));
+  return [theme, toggle];
+}
+
+
 function Portfolio() {
   const phrase = useTypewriter([
     "a Deep Learning Engineer.",
@@ -149,6 +170,7 @@ function Portfolio() {
     "an open-source contributor.",
     "a researcher who ships.",
   ]);
+  const [theme, toggleTheme] = useTheme();
 
   return (
     <div className="min-h-screen relative">
@@ -168,12 +190,12 @@ function Portfolio() {
       <div className="bg-aurora" aria-hidden="true" />
       <div className="bg-grid" aria-hidden="true" />
       <div className="bg-noise" aria-hidden="true" />
-      <Header />
+      <Header theme={theme} toggleTheme={toggleTheme} />
       <main className="mx-auto max-w-6xl px-6 md:px-10">
         <Hero phrase={phrase} />
         <Offer />
         <Projects />
-        <Skills />
+        <Skills theme={theme} />
         <Publications />
         <Posts />
       </main>
@@ -182,7 +204,7 @@ function Portfolio() {
   );
 }
 
-function Header() {
+function Header({ theme, toggleTheme }: { theme: Theme; toggleTheme: () => void }) {
   return (
     <header className="sticky top-0 z-50 backdrop-blur-md bg-background/70 border-b border-border">
       <div className="mx-auto max-w-6xl px-6 md:px-10 h-14 flex items-center justify-between">
@@ -196,12 +218,22 @@ function Header() {
             </a>
           ))}
         </nav>
-        <a
-          href="/cv.pdf"
-          className="mono text-xs px-3 py-1.5 border border-primary/40 text-primary rounded-full hover:bg-primary hover:text-primary-foreground transition-colors"
-        >
-          resume ↗
-        </a>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={toggleTheme}
+            aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
+            title={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
+            className="mono text-xs w-8 h-8 inline-flex items-center justify-center rounded-full border border-border text-muted-foreground hover:text-primary hover:border-primary/50 transition-colors"
+          >
+            {theme === "dark" ? "☼" : "☾"}
+          </button>
+          <a
+            href="/cv.pdf"
+            className="mono text-xs px-3 py-1.5 border border-primary/40 text-primary rounded-full hover:bg-primary hover:text-primary-foreground transition-colors"
+          >
+            resume ↗
+          </a>
+        </div>
       </div>
     </header>
   );
@@ -341,17 +373,18 @@ function Projects() {
   );
 }
 
-function SkillBadge({ skill }: { skill: Skill }) {
+function SkillBadge({ skill, theme }: { skill: Skill; theme: Theme }) {
   if (!skill.slug) {
     return <span className="chip chip-accent">{skill.name}</span>;
   }
+  const iconColor = theme === "light" ? "1f2a44" : "white";
   return (
     <span
       className="group inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-border bg-card/40 backdrop-blur-sm hover:border-primary/60 hover:bg-card/70 transition-colors"
       title={skill.name}
     >
       <img
-        src={`https://cdn.simpleicons.org/${skill.slug}/white`}
+        src={`https://cdn.simpleicons.org/${skill.slug}/${iconColor}`}
         alt=""
         aria-hidden="true"
         loading="lazy"
@@ -364,7 +397,7 @@ function SkillBadge({ skill }: { skill: Skill }) {
   );
 }
 
-function Skills() {
+function Skills({ theme }: { theme: Theme }) {
   return (
     <section className="py-20">
       <SectionHead id="skills" label="toolbox & credentials" title="Skills & Certificates" />
@@ -377,7 +410,7 @@ function Skills() {
                 <div className="mono text-xs text-muted-foreground mb-3">{group}</div>
                 <div className="flex flex-wrap gap-2">
                   {items.map((s) => (
-                    <SkillBadge key={s.name} skill={s} />
+                    <SkillBadge key={s.name} skill={s} theme={theme} />
                   ))}
                 </div>
               </div>
@@ -402,7 +435,7 @@ function Skills() {
                     src={b.image}
                     alt={b.title}
                     loading="lazy"
-                    style={{ filter: "url(#knockout-white)" }}
+                    style={theme === "dark" ? { filter: "url(#knockout-white)" } : undefined}
                     className="w-28 h-28 object-contain mb-3 drop-shadow-[0_0_18px_rgba(120,180,255,0.25)] group-hover:scale-105 transition-transform"
                   />
                   <div className="text-sm leading-snug mb-1 group-hover:text-primary transition-colors">
