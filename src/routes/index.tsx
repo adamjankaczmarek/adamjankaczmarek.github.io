@@ -218,12 +218,22 @@ function Header({ theme, toggleTheme }: { theme: Theme; toggleTheme: () => void 
             </a>
           ))}
         </nav>
-        <a
-          href="/cv.pdf"
-          className="mono text-xs px-3 py-1.5 border border-primary/40 text-primary rounded-full hover:bg-primary hover:text-primary-foreground transition-colors"
-        >
-          resume ↗
-        </a>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={toggleTheme}
+            aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
+            title={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
+            className="mono text-xs w-8 h-8 inline-flex items-center justify-center rounded-full border border-border text-muted-foreground hover:text-primary hover:border-primary/50 transition-colors"
+          >
+            {theme === "dark" ? "☼" : "☾"}
+          </button>
+          <a
+            href="/cv.pdf"
+            className="mono text-xs px-3 py-1.5 border border-primary/40 text-primary rounded-full hover:bg-primary hover:text-primary-foreground transition-colors"
+          >
+            resume ↗
+          </a>
+        </div>
       </div>
     </header>
   );
