@@ -59,10 +59,10 @@ const PROJECTS = [
 ];
 
 const OFFER = [
-  { title: "Deep Learning Engineering", desc: "End-to-end design and training of neural architectures — from data pipelines to production deployment on GPU clusters.", icon: "◈" },
-  { title: "NLP Systems", desc: "Custom language models, NER, coreference, ASR rescoring and information extraction across low-resource languages.", icon: "✦" },
-  { title: "Research & Consulting", desc: "Translating academic SoTA into shippable systems. Literature reviews, prototypes, and reproducible benchmarks.", icon: "❖" },
-  { title: "Open-source Tooling", desc: "Building and contributing to NLP toolkits and annotation platforms used by research communities.", icon: "✺" },
+  { title: "Deep Learning Engineering", desc: "End-to-end design and training of neural architectures — from data pipelines to production deployment on GPU clusters.", icon: "◈", bg: bgSrvDl },
+  { title: "NLP Systems", desc: "Custom language models, NER, coreference, ASR rescoring and information extraction across low-resource languages.", icon: "✦", bg: bgSrvNlp },
+  { title: "Research & Consulting", desc: "Translating academic SoTA into shippable systems. Literature reviews, prototypes, and reproducible benchmarks.", icon: "❖", bg: bgSrvRes },
+  { title: "Open-source Tooling", desc: "Building and contributing to NLP toolkits and annotation platforms used by research communities.", icon: "✺", bg: bgSrvOss },
 ];
 
 type Skill = { name: string; slug?: string };
