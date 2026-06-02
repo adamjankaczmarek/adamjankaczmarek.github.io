@@ -364,12 +364,8 @@ function Projects() {
               {p.bg && (
                 <div
                   aria-hidden="true"
-                  className="absolute inset-0 -z-10 bg-cover bg-center opacity-60 group-hover:opacity-80 transition-opacity duration-500"
-                  style={{
-                    backgroundImage: `url(${p.bg})`,
-                    WebkitMaskImage: "linear-gradient(135deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 85%)",
-                    maskImage: "linear-gradient(135deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 85%)",
-                  }}
+                  className="tile-bg"
+                  style={{ backgroundImage: `url(${p.bg})` }}
                 />
               )}
               <div className="flex items-start justify-between gap-4 mb-2">
