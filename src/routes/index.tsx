@@ -15,6 +15,7 @@ import bgSrvOss from "@/assets/services/opensource.jpg";
 import bgPostElectra from "@/assets/posts/electra.jpg";
 import bgPostFewshot from "@/assets/posts/fewshot.jpg";
 import bgPostBench from "@/assets/posts/benchmarks.jpg";
+import profileAsset from "@/assets/profile.jpg.asset.json";
 
 const POST_BG: Record<string, string> = {
   "electra-polish": bgPostElectra,
@@ -285,15 +286,17 @@ function Hero({ phrase }: { phrase: string }) {
         </div>
       </div>
       <div className="hidden md:block">
-        <div className="relative w-64 h-64">
+        <div className="relative w-72 h-96">
           <div className="absolute inset-0 bg-gradient-to-l from-primary/20 to-accent/10 blur-3xl" />
           <img
-            src="https://cogito.codes/images/profile_hu2177b61edd9b8b2fe12c8c19d362c492_344938_500x500_fit_box_3.png"
+            src={profileAsset.url}
             alt="Adam Jan Kaczmarek"
             className="relative w-full h-full object-cover contrast-110"
             style={{
-              maskImage: "linear-gradient(to left, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 100%)",
-              WebkitMaskImage: "linear-gradient(to left, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 100%)",
+              maskImage:
+                "radial-gradient(ellipse 70% 75% at 65% 45%, rgba(0,0,0,1) 35%, rgba(0,0,0,0.6) 65%, rgba(0,0,0,0) 100%)",
+              WebkitMaskImage:
+                "radial-gradient(ellipse 70% 75% at 65% 45%, rgba(0,0,0,1) 35%, rgba(0,0,0,0.6) 65%, rgba(0,0,0,0) 100%)",
             }}
             loading="eager"
           />
