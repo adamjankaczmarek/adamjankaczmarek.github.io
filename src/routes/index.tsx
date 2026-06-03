@@ -295,9 +295,9 @@ function Hero({ phrase }: { phrase: string }) {
             className="relative w-full h-full object-cover contrast-110"
             style={{
               maskImage:
-                "radial-gradient(ellipse 70% 75% at 65% 45%, rgba(0,0,0,1) 35%, rgba(0,0,0,0.6) 65%, rgba(0,0,0,0) 100%)",
+                "radial-gradient(ellipse 72% 95% at 50% 50%, rgba(0,0,0,1) 50%, rgba(0,0,0,0.7) 78%, rgba(0,0,0,0) 100%)",
               WebkitMaskImage:
-                "radial-gradient(ellipse 70% 75% at 65% 45%, rgba(0,0,0,1) 35%, rgba(0,0,0,0.6) 65%, rgba(0,0,0,0) 100%)",
+                "radial-gradient(ellipse 72% 95% at 50% 50%, rgba(0,0,0,1) 50%, rgba(0,0,0,0.7) 78%, rgba(0,0,0,0) 100%)",
             }}
             loading="eager"
           />
