@@ -201,6 +201,7 @@ function Portfolio() {
           </filter>
         </defs>
       </svg>
+      <div className="bg-perspective" aria-hidden="true" />
       <div className="bg-aurora" aria-hidden="true" />
       <div className="bg-grid" aria-hidden="true" />
       <div className="bg-noise" aria-hidden="true" />
