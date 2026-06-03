@@ -286,15 +286,17 @@ function Hero({ phrase }: { phrase: string }) {
       </div>
       <div className="hidden md:block">
         <div className="relative w-64 h-64">
-          <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary/30 to-accent/30 blur-2xl" />
-          <div className="relative w-full h-full rounded-full border border-border overflow-hidden card-surface flex items-center justify-center">
-            <img
-              src="https://cogito.codes/images/profile_hu2177b61edd9b8b2fe12c8c19d362c492_344938_500x500_fit_box_3.png"
-              alt="Adam Jan Kaczmarek"
-              className="w-full h-full object-cover contrast-110"
-              loading="eager"
-            />
-          </div>
+          <div className="absolute inset-0 bg-gradient-to-l from-primary/20 to-accent/10 blur-3xl" />
+          <img
+            src="https://cogito.codes/images/profile_hu2177b61edd9b8b2fe12c8c19d362c492_344938_500x500_fit_box_3.png"
+            alt="Adam Jan Kaczmarek"
+            className="relative w-full h-full object-cover contrast-110"
+            style={{
+              maskImage: "linear-gradient(to left, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 100%)",
+              WebkitMaskImage: "linear-gradient(to left, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 100%)",
+            }}
+            loading="eager"
+          />
         </div>
       </div>
     </section>
