@@ -291,3 +291,28 @@
 @media (prefers-reduced-motion: reduce) {
   .bg-aurora::before, .bg-aurora::after { animation: none; }
 }
+
+/* Perspective backdrop image — sits behind aurora layers. */
+.bg-perspective {
+  position: fixed;
+  inset: 0;
+  z-index: -3;
+  pointer-events: none;
+  background-image: url("/__l5e/assets-v1/4eac92af-53e7-43af-85b3-ec0c2e27abbe/background_perspective.jpg");
+  background-size: cover;
+  background-position: center;
+  /* Fade the edges into the page background so the vignette feels seamless. */
+  mask-image: radial-gradient(ellipse 90% 80% at 50% 45%, rgba(0,0,0,1) 30%, rgba(0,0,0,0.6) 70%, rgba(0,0,0,0) 100%);
+  -webkit-mask-image: radial-gradient(ellipse 90% 80% at 50% 45%, rgba(0,0,0,1) 30%, rgba(0,0,0,0.6) 70%, rgba(0,0,0,0) 100%);
+}
+/* Dark theme: dim the image so foreground text reads cleanly. */
+:root .bg-perspective {
+  opacity: 0.45;
+  filter: saturate(1.05) brightness(0.85);
+}
+/* Light theme: invert to bright paper with subtle blue lines on white. */
+.light .bg-perspective {
+  opacity: 0.18;
+  filter: invert(1) hue-rotate(180deg) saturate(0.55) brightness(1.1) contrast(0.9);
+  mix-blend-mode: multiply;
+}
