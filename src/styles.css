@@ -308,11 +308,11 @@
 /* Dark theme: dim the image so foreground text reads cleanly. */
 :root .bg-perspective {
   opacity: 0.45;
-  filter: saturate(1.05) brightness(0.85);
+  filter: saturate(1.05) brightness(0.85) blur(4px);
 }
 /* Light theme: invert to bright paper with subtle blue lines on white. */
 .light .bg-perspective {
   opacity: 0.18;
-  filter: invert(1) hue-rotate(180deg) saturate(0.55) brightness(1.1) contrast(0.9);
+  filter: invert(1) hue-rotate(180deg) saturate(0.55) brightness(1.1) contrast(0.9) blur(4px);
   mix-blend-mode: multiply;
 }
