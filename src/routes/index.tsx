@@ -221,7 +221,7 @@ function Portfolio() {
 
 function Header({ theme, toggleTheme }: { theme: Theme; toggleTheme: () => void }) {
   return (
-    <header className="sticky top-0 z-50 backdrop-blur-md bg-background/70 border-b border-border">
+    <header className="sticky top-0 z-50 backdrop-blur-2xl bg-background/40 border-b border-white/10 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)]">
       <div className="mx-auto max-w-6xl px-6 md:px-10 h-14 flex items-center justify-between">
         <a href="#about" className="mono text-sm text-primary">
           <span className="opacity-60">~/</span>adam.kaczmarek
