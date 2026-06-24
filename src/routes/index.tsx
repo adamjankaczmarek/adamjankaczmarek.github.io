@@ -242,12 +242,12 @@ function Header({ theme, toggleTheme }: { theme: Theme; toggleTheme: () => void 
           >
             {theme === "dark" ? "☼" : "☾"}
           </button>
-          <a
-            href="/cv.pdf"
+          <Link
+            to="/resume"
             className="mono text-xs px-3 py-1.5 border border-primary/40 text-primary rounded-full hover:bg-primary hover:text-primary-foreground transition-colors"
           >
             resume ↗
-          </a>
+          </Link>
         </div>
       </div>
     </header>
