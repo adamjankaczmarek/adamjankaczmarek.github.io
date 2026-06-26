@@ -263,7 +263,7 @@ function Hero({ phrase }: { phrase: string }) {
           available for select engagements
         </div>
         <h1 className="text-5xl md:text-7xl leading-[1.05] mb-6">
-          Hi, I'm <span className="italic text-gradient">Adam</span>.
+          Hi, I'm <span className="text-gradient">Adam</span>.
           <br />
           I am{" "}
           <span className="mono text-2xl md:text-4xl text-primary not-italic">
