@@ -221,7 +221,7 @@ function Portfolio() {
 
 function Header({ theme, toggleTheme }: { theme: Theme; toggleTheme: () => void }) {
   return (
-    <header className="sticky top-0 z-50 backdrop-blur-2xl bg-background/40 border-b border-white/10 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)]">
+    <header className="sticky top-0 z-50 bg-background border-b border-border shadow-sm">
       <div className="mx-auto max-w-6xl px-6 md:px-10 h-14 flex items-center justify-between">
         <a href="#about" className="mono text-sm text-primary">
           <span className="opacity-60">~/</span>adam.kaczmarek
@@ -281,7 +281,7 @@ function Hero({ phrase }: { phrase: string }) {
           <a href="#projects" className="btn-primary mono text-sm px-5 py-2.5 rounded-full inline-flex items-center gap-1">
             view projects →
           </a>
-          <a href="mailto:adam.jan.kaczmarek@softwaremill.com" className="mono text-sm px-5 py-2.5 border border-border rounded-full hover:border-primary transition-colors backdrop-blur-sm">
+          <a href="mailto:adam.jan.kaczmarek@softwaremill.com" className="mono text-sm px-5 py-2.5 border border-border rounded-full hover:border-primary transition-colors bg-card">
             get in touch
           </a>
         </div>
@@ -402,7 +402,7 @@ function SkillBadge({ skill, theme }: { skill: Skill; theme: Theme }) {
   const iconColor = theme === "light" ? "1f2a44" : "white";
   return (
     <span
-      className="group inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-border bg-card/40 backdrop-blur-sm hover:border-primary/60 hover:bg-card/70 transition-colors"
+      className="group inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-border bg-card hover:border-primary/60 transition-colors"
       title={skill.name}
     >
       <img
