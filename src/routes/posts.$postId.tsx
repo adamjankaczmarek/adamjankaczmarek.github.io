@@ -45,7 +45,7 @@ function PostPage() {
 
   return (
     <div className="min-h-screen">
-      <header className="sticky top-0 z-50 backdrop-blur-md bg-background/70 border-b border-border">
+      <header className="sticky top-0 z-50 bg-background border-b border-border shadow-sm">
         <div className="mx-auto max-w-6xl px-6 md:px-10 h-14 flex items-center justify-between">
           <Link to="/" className="mono text-sm text-primary">
             <span className="opacity-60">~/</span>adam.kaczmarek
