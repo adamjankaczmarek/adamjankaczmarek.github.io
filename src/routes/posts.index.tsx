@@ -5,9 +5,16 @@ export const Route = createFileRoute("/posts/")({
   head: () => ({
     meta: [
       { title: "Writing — Adam Jan Kaczmarek" },
-      { name: "description", content: "Blog posts and notes by Adam Jan Kaczmarek on deep learning, NLP, and reproducible research." },
+      {
+        name: "description",
+        content:
+          "Blog posts and notes by Adam Jan Kaczmarek on deep learning, NLP, and reproducible research.",
+      },
       { property: "og:title", content: "Writing — Adam Jan Kaczmarek" },
-      { property: "og:description", content: "Blog posts and notes on deep learning, NLP, and reproducible research." },
+      {
+        property: "og:description",
+        content: "Blog posts and notes on deep learning, NLP, and reproducible research.",
+      },
       { property: "og:type", content: "website" },
     ],
   }),
@@ -58,9 +65,7 @@ function PostsPage() {
               <h2 className="text-xl md:text-2xl mb-2 group-hover:text-primary transition-colors">
                 {post.title}
               </h2>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                {post.excerpt}
-              </p>
+              <p className="text-sm text-muted-foreground leading-relaxed">{post.excerpt}</p>
               <div className="mt-4 flex items-center gap-1 text-xs text-primary opacity-0 group-hover:opacity-100 transition-opacity">
                 <span>read post</span>
                 <span>→</span>

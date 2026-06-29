@@ -73,7 +73,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Adam Jan Kaczmarek — Deep Learning & NLP Engineer" },
-      { name: "description", content: "Portfolio of Adam Jan Kaczmarek — Deep Learning Engineer, NLP researcher, and open-source contributor." },
+      {
+        name: "description",
+        content:
+          "Portfolio of Adam Jan Kaczmarek — Deep Learning Engineer, NLP researcher, and open-source contributor.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
