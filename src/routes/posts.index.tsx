@@ -33,6 +33,9 @@ function PostsPage() {
             <Link to="/" className="hover:text-primary transition-colors">
               home
             </Link>
+            <Link to="/case-studies" className="hover:text-primary transition-colors">
+              case studies
+            </Link>
             <Link to="/posts" className="text-primary transition-colors">
               writing
             </Link>

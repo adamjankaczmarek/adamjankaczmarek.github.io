@@ -16,6 +16,7 @@ import bgPostElectra from "@/assets/posts/electra.jpg";
 import bgPostFewshot from "@/assets/posts/fewshot.jpg";
 import bgPostBench from "@/assets/posts/benchmarks.jpg";
 import profileAsset from "@/assets/profile.jpg";
+import { VantaWavesBackground } from "@/components/VantaWavesBackground";
 
 const POST_BG: Record<string, string> = {
   "electra-polish": bgPostElectra,
@@ -48,7 +49,8 @@ export const Route = createFileRoute("/")({
 const NAV = [
   { id: "about", label: "about" },
   { id: "offer", label: "offer" },
-  { id: "projects", label: "projects" },
+  { id: "case-studies", label: "case studies", href: "/case-studies" },
+  { id: "projects", label: "research" },
   { id: "skills", label: "skills" },
   { id: "publications", label: "publications" },
   { id: "posts", label: "writing" },
@@ -341,9 +343,8 @@ function Portfolio() {
           </filter>
         </defs>
       </svg>
-      <div className="bg-perspective" aria-hidden="true" />
+      <VantaWavesBackground theme={theme} />
       <div className="bg-aurora" aria-hidden="true" />
-      <div className="bg-grid" aria-hidden="true" />
       <div className="bg-noise" aria-hidden="true" />
       <Header theme={theme} toggleTheme={toggleTheme} />
       <main className="mx-auto max-w-6xl px-6 md:px-10">
@@ -367,11 +368,17 @@ function Header({ theme, toggleTheme }: { theme: Theme; toggleTheme: () => void 
           <span className="opacity-60">~/</span>adam.kaczmarek
         </a>
         <nav className="hidden md:flex gap-6 mono text-xs text-muted-foreground">
-          {NAV.map((n) => (
-            <a key={n.id} href={`#${n.id}`} className="hover:text-primary transition-colors">
-              {n.label}
-            </a>
-          ))}
+          {NAV.map((n) =>
+            n.href ? (
+              <Link key={n.id} to={n.href} className="hover:text-primary transition-colors">
+                {n.label}
+              </Link>
+            ) : (
+              <a key={n.id} href={`#${n.id}`} className="hover:text-primary transition-colors">
+                {n.label}
+              </a>
+            ),
+          )}
         </nav>
         <div className="flex items-center gap-2">
           <button
@@ -407,8 +414,7 @@ function Hero({ phrase }: { phrase: string }) {
         </div>
         <h1 className="text-5xl md:text-7xl leading-[1.05] mb-6">
           Hi, I'm <span className="text-gradient">Adam</span>.
-          <br />
-          I am{" "}
+          <br />I am{" "}
           <span className="mono text-2xl md:text-4xl text-primary not-italic">
             {phrase}
             <span className="inline-block w-[0.6ch] h-[0.9em] -mb-1 bg-primary animate-pulse ml-0.5" />
@@ -421,12 +427,12 @@ function Hero({ phrase }: { phrase: string }) {
           <span className="text-foreground">CLARIN-PL</span> open-source tooling.
         </p>
         <div className="mt-8 flex flex-wrap gap-3">
-          <a
-            href="#projects"
+          <Link
+            to="/case-studies"
             className="btn-primary mono text-sm px-5 py-2.5 rounded-full inline-flex items-center gap-1"
           >
-            view projects →
-          </a>
+            view case studies →
+          </Link>
           <a
             href="mailto:cogitocode@cogitocode.pl"
             className="mono text-sm px-5 py-2.5 border border-border rounded-full hover:border-primary transition-colors bg-card"
@@ -492,7 +498,7 @@ function Offer() {
             {o.bg && (
               <div
                 aria-hidden="true"
-                className="tile-bg"
+                className="tile-bg paper"
                 style={{ backgroundImage: `url(${o.bg})` }}
               />
             )}
@@ -515,7 +521,7 @@ function Projects() {
       <SectionHead
         id="projects"
         label="selected work"
-        title="Projects"
+        title="Research Projects"
         kicker="A decade of applied research across NLP, computer vision, and open-source tooling."
       />
       <div className="mb-8 flex flex-wrap gap-2">
@@ -723,7 +729,7 @@ function Posts() {
               {bg && (
                 <div
                   aria-hidden="true"
-                  className="tile-bg-right"
+                  className="tile-bg-right paper"
                   style={{ backgroundImage: `url(${bg})` }}
                 />
               )}
