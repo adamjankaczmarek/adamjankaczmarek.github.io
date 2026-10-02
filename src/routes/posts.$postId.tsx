@@ -1,5 +1,53 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import type { ReactNode } from "react";
 import { getPostBySlug, POSTS } from "@/lib/posts.data";
+
+const INLINE = /(`[^`]+`|\*\*[^*]+\*\*|\*[^*\s][^*]*\*|\[[^\]]+\]\([^)\s]+\))/g;
+
+// Renders the small inline-markdown subset used in post text: `code`, **bold**, *italic*, [link](url).
+function Inline({ text }: { text: string }) {
+  const parts: ReactNode[] = [];
+  let last = 0;
+  for (const m of text.matchAll(INLINE)) {
+    const tok = m[0];
+    const at = m.index ?? 0;
+    if (at > last) parts.push(text.slice(last, at));
+    if (tok.startsWith("`")) {
+      parts.push(
+        <code
+          key={at}
+          className="mono text-[0.85em] px-1.5 py-0.5 rounded bg-muted text-foreground"
+        >
+          {tok.slice(1, -1)}
+        </code>,
+      );
+    } else if (tok.startsWith("**")) {
+      parts.push(
+        <strong key={at} className="text-foreground font-semibold">
+          <Inline text={tok.slice(2, -2)} />
+        </strong>,
+      );
+    } else if (tok.startsWith("*")) {
+      parts.push(<em key={at}>{tok.slice(1, -1)}</em>);
+    } else {
+      const [, label, href] = tok.match(/^\[([^\]]+)\]\(([^)]+)\)$/)!;
+      parts.push(
+        <a
+          key={at}
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-primary underline underline-offset-2 hover:opacity-80"
+        >
+          {label}
+        </a>,
+      );
+    }
+    last = at + tok.length;
+  }
+  if (last < text.length) parts.push(text.slice(last));
+  return <>{parts}</>;
+}
 
 export const Route = createFileRoute("/posts/$postId")({
   head: ({ params }) => {
@@ -94,7 +142,7 @@ function PostPage() {
                     className="text-2xl md:text-3xl mt-12 mb-4 font-normal"
                     style={{ fontFamily: "var(--font-display)" }}
                   >
-                    {block.text}
+                    <Inline text={block.text} />
                   </h2>
                 );
               case "h3":
@@ -104,7 +152,7 @@ function PostPage() {
                     className="text-xl md:text-2xl mt-8 mb-3 font-normal"
                     style={{ fontFamily: "var(--font-display)" }}
                   >
-                    {block.text}
+                    <Inline text={block.text} />
                   </h3>
                 );
               case "blockquote":
@@ -114,7 +162,7 @@ function PostPage() {
                     className="border-l-2 border-primary pl-5 my-8 italic text-muted-foreground"
                     style={{ fontFamily: "var(--font-display)" }}
                   >
-                    {block.text}
+                    <Inline text={block.text} />
                   </blockquote>
                 );
               case "ul":
@@ -123,16 +171,70 @@ function PostPage() {
                     {block.items?.map((item, j) => (
                       <li key={j} className="flex items-start gap-3">
                         <span className="mt-2.5 w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
-                        <span className="text-muted-foreground leading-relaxed">{item}</span>
+                        <span className="text-muted-foreground leading-relaxed">
+                          <Inline text={item} />
+                        </span>
                       </li>
                     ))}
                   </ul>
+                );
+              case "ol":
+                return (
+                  <ol key={i} className="my-6 space-y-2 list-decimal pl-6 marker:text-primary">
+                    {block.items?.map((item, j) => (
+                      <li key={j} className="text-muted-foreground leading-relaxed pl-1">
+                        <Inline text={item} />
+                      </li>
+                    ))}
+                  </ol>
+                );
+              case "code":
+                return (
+                  <pre
+                    key={i}
+                    className="mono text-xs md:text-sm leading-relaxed my-6 p-4 rounded-lg border border-border bg-muted/40 overflow-x-auto"
+                  >
+                    <code>{block.text}</code>
+                  </pre>
+                );
+              case "table":
+                return (
+                  <div key={i} className="my-8 overflow-x-auto rounded-lg border border-border">
+                    <table className="w-full text-sm border-collapse">
+                      <thead>
+                        <tr className="bg-muted/40">
+                          {block.headers?.map((h, j) => (
+                            <th
+                              key={j}
+                              className="mono text-xs text-left font-medium text-foreground px-3 py-2 border-b border-border whitespace-nowrap"
+                            >
+                              <Inline text={h} />
+                            </th>
+                          ))}
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {block.rows?.map((row, j) => (
+                          <tr key={j} className="border-b border-border last:border-b-0">
+                            {row.map((cell, k) => (
+                              <td
+                                key={k}
+                                className={`px-3 py-2 align-top text-muted-foreground ${k === 0 ? "text-foreground whitespace-nowrap" : ""}`}
+                              >
+                                <Inline text={cell} />
+                              </td>
+                            ))}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
                 );
               case "p":
               default:
                 return (
                   <p key={i} className="text-muted-foreground leading-relaxed mb-6">
-                    {block.text}
+                    <Inline text={block.text} />
                   </p>
                 );
             }
