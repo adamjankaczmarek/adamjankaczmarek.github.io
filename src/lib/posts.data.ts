@@ -1,13 +1,25 @@
+import { fineTuningLocalCodingLlms2026 } from "@/lib/posts/fine-tuning-local-coding-llms-2026";
+
+export interface PostBlock {
+  type: "p" | "h2" | "h3" | "blockquote" | "ul" | "ol" | "code" | "table";
+  text: string;
+  items?: string[];
+  lang?: string;
+  headers?: string[];
+  rows?: string[][];
+}
+
 export interface Post {
   slug: string;
   title: string;
   date: string;
   read: string;
   excerpt: string;
-  content: { type: "p" | "h2" | "h3" | "blockquote" | "ul"; text: string; items?: string[] }[];
+  content: PostBlock[];
 }
 
 export const POSTS: Post[] = [
+  fineTuningLocalCodingLlms2026,
   {
     slug: "electra-polish",
     title: "Notes on training ELECTRA from scratch in Polish",
