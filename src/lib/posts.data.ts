@@ -1,5 +1,3 @@
-import { fineTuningLocalCodingLlms2026 } from "@/lib/posts/fine-tuning-local-coding-llms-2026";
-
 export interface PostBlock {
   type: "p" | "h2" | "h3" | "blockquote" | "ul" | "ol" | "code" | "table";
   text: string;
@@ -19,7 +17,6 @@ export interface Post {
 }
 
 export const POSTS: Post[] = [
-  fineTuningLocalCodingLlms2026,
   {
     slug: "electra-polish",
     title: "Notes on training ELECTRA from scratch in Polish",
