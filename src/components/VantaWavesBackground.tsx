@@ -15,11 +15,11 @@ function cssVarToHexNumber(varName: string): number {
   return (r << 16) | (g << 8) | b;
 }
 
-// Mid-lightness gray-blue tones (not the bright teal primary) so the lit surface
+// Muted Sentinel blue tones (not the bright primary) so the lit surface
 // reads as a subtle gray backdrop rather than a loud color block.
 const WAVE_COLOR: Record<Theme, number> = {
-  dark: 0x2f3947,
-  light: 0x94a3b8,
+  dark: 0x1f4553,
+  light: 0xa0cbd9,
 };
 
 export function VantaWavesBackground({ theme }: { theme: Theme }) {
